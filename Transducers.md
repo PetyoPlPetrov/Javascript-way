@@ -51,7 +51,7 @@ for (let index = 0; index < people.length; index++) {
     names.push(personUpperCaseWithPrefix)
 
 }
-//[ 'Dear, ADAM', 'Dear, EVE' ]
+console.log(names)//[ 'Dear, ADAM', 'Dear, EVE' ]
 ```
 That hurts a bit, isn't it ? A more elegant solution would be to use the build-in methods like .map()
 ```javascript
