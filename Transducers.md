@@ -100,11 +100,11 @@ let count=0;
 let isOdd =e=>{
     count++;
     return e%2==0
- }
-  let moreThan3 =e=>{
-      count++;
-      return e >3
-  }
+}
+let moreThan3 =e=>{
+    count++;
+    return e >3
+}
 for(let i=0; i< items.length; i++){
     if(isOdd(arr[i]) && moreThan3(arr[i])){
        ...item found!
