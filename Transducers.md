@@ -1,6 +1,6 @@
 ### Table of Contents
 1. It all started with a for-loop ...
-2. Lets we go slightly more fp!
+2. Lets go slightly more fp!
 3. What about time complexity?!
 4. What about pipelines vs for loop performance
 5. Lazy evaluation in javascript...help me ramda!
@@ -25,7 +25,7 @@ for(let i=0; i< items.length; i++){
 Yes, it feels cool and fast but it is imperative. That means we write every step of the algorithm - even dictating the iteration process, and no one does this without solid reason anymore. One must concentrate on the business rules, not the iteration process...
 That code is not good as it is hard to follow, hard to refactor and support when complexity grows in size.
 
-#### Lets we go slightly more fp!
+#### Lets go slightly more fp!
 ##### Functional programming, but why?
 
 > In computer science, function composition is an act or mechanism to combine simple functions to build more complicated ones
@@ -35,7 +35,7 @@ Lets have another example: we have a task to get all the people names and transf
 The iterative solution would be something like this
 ##### Some context...
 ```javascript
-let people=[{name:'Adam',age:18},{name:'Eve'}]
+let people=[{name:'Adam',age:18},{name:'Eve',age:22}]
 let names =[]
 const makeUpperCase = name => name.toUpperCase();
 const addPrefix = name => "Dear, "+name;
@@ -61,7 +61,7 @@ const names = people
                   .map(makeUpperCase)
                   .map(addPrefix)//[ 'Dear, ADAM', 'Dear, EVE' ]
 ```
-One thing we need to admit is that the code is already human readable. We got rid of the manual iteration process rules and the intermediate variables Yet another thing to admit is the time complexity is 3 times slower... wait, what?!
+One thing we need to admit is that the code is already human readable. We got rid of the manual iteration process rules and the intermediate variables. Yet another thing to admit is the time complexity is 3 times slower... wait, what?!
 
 ### What about time complexity?!
 
@@ -69,7 +69,7 @@ Yes, we do 3 iteration instead of one (with for loop). We gained readability, ye
 
 We can still do the transformation in one iteration like this
 ```javascript
-const names = people.map(person=>addPrefix(makeUpperCase(getName(person)))) //[ 'Dear, ADAM', 'Dear, EVE' ]           
+const names = people.map(person=>addPrefix(makeUpperCase(getName(person)))) console.log(names)//[ 'Dear, ADAM', 'Dear, EVE' ]           
 ```
 Well, I wouldn't call this the best alternative as it is not very readable, to say the least. Yet, it does iterate once over the collection. In order to do better we need to have a look at the function pipelines. In theory, we need to apply a collection of functions onto the collection of items. This collection is wrapped around the compose function which meets up the following rule
 ```javascript
@@ -135,18 +135,18 @@ It is also true that the modern browsers are fast enough and this loss is not a 
 We applied the collection of functions over the collection. Hmm...
 ##### How we did it wrong way?!
 After the first filter we are building a new collection with items [2,4,6,8]. After the second filter we again built a new collection with items [4,6,8]. At last, we get the first value which takes 1 step.
-#####What is he problem?
+##### What is he problem?
 We iterate over items 6 and 8 over and over again even though we have found our answer: 4. Why dont we just stop here ?! In fact, we do several iterations as the pipeline includes not only data mapping transformations but filtering as well.
 ##### The solution
 We need a way to let the collection of functions pass through every single item, not the whole collection of items. Thus, we could stop when we find the first item meeting the restrictions.
-#####The implementation
+##### The implementation
 OMG, transducers !
 
 #### Lazy evaluation in javascript...help me ramda!
 Transducers are reducing functions. A reducing function is any function that can be passed to .reduce(). Ramda library has 2 functions which implement transducer protocol: into and transduce which enables us to do what we actually achieve in the for-loop, yet in fp way.
 ##### What if we..
 What if we could take the first item and check if it satisfy all the next filter predicates. If it doesn't, we take the second and so on until we take an item which pass through all the filters and then we just stop iterating over the collection items.
-##### Transducers, here they are
+#####T ransducers, here they are
 That is exactly what they do - taking item by item and applying all the functions on them.
 The functions are applied consecutively onto the items of the array. Thus, every item would go to the next filter only if it passed the previous filter predicate. Thus, we could apply the next filter predicate on the same item, without needing to wait the whole collection to be iterated over.
 
@@ -164,7 +164,7 @@ count //6
 ```
 
 [Show me the code](https://ramdajs.com/repl/?v=0.27.0#?let%20count%3D0%3B%0A%0Alet%20isOdd%20%3De%3D%3E%7B%0A%20%20count%2B%2B%3B%0A%20%20return%20e%252%3D%3D0%0A%7D%3B%0A%0Alet%20moreThan3%20%3De%3D%3E%7B%0A%20%20%20%20count%2B%2B%3B%0A%20%20%20%20return%20e%20%3E3%0A%7D%3B%0A%0Alet%20transducer%20%3D%20compose%28%0Afilter%28isOdd%29%2C%0Afilter%28moreThan3%29%2C%0Atake%281%29%0A%29%3B%0A%0Aconsole.clear%28%29%3B%0A%0A%0Alet%20arr%20%3D%5B1%2C2%2C3%2C4%2C5%2C6%2C7%2C8%5D%3B%0A%0Alet%20result%20%3D%20R.into%28%5B%5D%2C%20transducer%2C%20arr%29%3B%20%0Aconsole.log%28result%29%2F%2F%20%5B4%5D%0Acount%20%2F%2F6%0A%0A%0A%0A%0A)
-In this context lazy evaluation represents the idea of not bothering to apply functions onto items when the goal of the function is achieved and those items dont need searching.
+In this context lazy evaluation represents the idea of not bothering to apply functions onto items when the goal of the function is achieved and those items dont need processing.
 
 #### Final notes
 
