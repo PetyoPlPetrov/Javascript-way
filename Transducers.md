@@ -12,11 +12,11 @@ Omg, I am a programer and I need to search collection. We have all been there: h
 
 ```javascript
 let items = [1,2,3,4,5,6,7,8];
-const isOdd = x => x%2 === 0;
+const isEven = x => x%2 === 0;
 const moreThan3 = x => x > 3;
 
 for(let i=0; i< items.length; i++){
-    if(isOdd(arr[i]) && moreThan3(arr[i])){
+    if(isEven(arr[i]) && moreThan3(arr[i])){
         ......
         break
     }
@@ -97,7 +97,7 @@ Lets get back to our first example with the for loop. It wouldn't be serious to 
 let items = [1,2,3,4,5,6,7,8];
 let count=0;
 
-let isOdd =e=>{
+let isEven =e=>{
     count++;
     return e%2==0
 }
@@ -106,7 +106,7 @@ let moreThan3 =e=>{
     return e >3
 }
 for(let i=0; i< items.length; i++){
-    if(isOdd(arr[i]) && moreThan3(arr[i])){
+    if(isEven(arr[i]) && moreThan3(arr[i])){
        ...item found!
         break
     }
@@ -118,7 +118,7 @@ console.log(count)// 6
 ```javascript
 let count=0;
 let findFirstItem = pipe(
-   filter(isOdd),
+   filter(isEven),
    filter(moreThan3),
    take(1)
 );
@@ -153,7 +153,7 @@ The functions are applied consecutively onto the items of the array. Thus, every
 ```javascript
 let count=0;
 let transducer = compose(
-   filter(isOdd),
+   filter(isEven),
    filter(moreThan3),
    take(1)
 );
