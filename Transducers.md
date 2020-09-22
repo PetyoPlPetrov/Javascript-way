@@ -146,7 +146,7 @@ OMG, transducers !
 Transducers are reducing functions. A reducing function is any function that can be passed to .reduce(). Ramda library has 2 functions which implement transducer protocol: into and transduce which enables us to do what we actually achieve in the for-loop, yet in fp way.
 ##### What if we..
 What if we could take the first item and check if it satisfy all the next filter predicates. If it doesn't, we take the second and so on until we take an item which pass through all the filters and then we just stop iterating over the collection items.
-#####T ransducers, here they are
+##### T ransducers, here they are
 That is exactly what they do - taking item by item and applying all the functions on them.
 The functions are applied consecutively onto the items of the array. Thus, every item would go to the next filter only if it passed the previous filter predicate. Thus, we could apply the next filter predicate on the same item, without needing to wait the whole collection to be iterated over.
 
