@@ -164,9 +164,9 @@ count //6
 ```
 
 [Show me the code](https://ramdajs.com/repl/?v=0.27.0#?let%20count%3D0%3B%0A%0Alet%20isOdd%20%3De%3D%3E%7B%0A%20%20count%2B%2B%3B%0A%20%20return%20e%252%3D%3D0%0A%7D%3B%0A%0Alet%20moreThan3%20%3De%3D%3E%7B%0A%20%20%20%20count%2B%2B%3B%0A%20%20%20%20return%20e%20%3E3%0A%7D%3B%0A%0Alet%20transducer%20%3D%20compose%28%0Afilter%28isOdd%29%2C%0Afilter%28moreThan3%29%2C%0Atake%281%29%0A%29%3B%0A%0Aconsole.clear%28%29%3B%0A%0A%0Alet%20arr%20%3D%5B1%2C2%2C3%2C4%2C5%2C6%2C7%2C8%5D%3B%0A%0Alet%20result%20%3D%20R.into%28%5B%5D%2C%20transducer%2C%20arr%29%3B%20%0Aconsole.log%28result%29%2F%2F%20%5B4%5D%0Acount%20%2F%2F6%0A%0A%0A%0A%0A)
-In this context lazy evaluation represents the idea of not bothering to apply functions onto items when the goal of the function is achieved and those items dont need processing.
+In this context lazy evaluation represents the idea of not bothering to apply functions onto items when the goal of the function is achieved and those items that dont need processing.
 
 #### Final notes
 
-Well, yes...I didn't go into deep details for transducers and the idea behind them. Generally, they are meant to be applied onto big collections and streams due to their processing nature. 
+Well, yes...I didn't go into deep details about the transducers`s implementation and how they work. Generally, they are meant to be applied onto big collections and streams due to their processing nature. 
 At the end of the day, we achieved great performance and level of abstraction that are needed to make our code more readable and maintainable, and last but not least- much more easier to reason about.
